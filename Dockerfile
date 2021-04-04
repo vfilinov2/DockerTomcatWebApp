@@ -1,22 +1,21 @@
 FROM ubuntu:20.04
-RUN apt update -y
-RUN apt install default-jdk -y
-RUN apt update -y
-RUN apt install tomcat9 -y
-RUN apt update -y
-RUN apt install maven -y
-RUN apt update -y
-RUN apt install git -y
+RUN ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime ;\
+apt update -y ;\
+apt install git -y;\
+apt update -y ;\
+apt install default-jdk -y ;\
+apt update -y ;\
+apt install maven -y ;\
+apt update -y ;\
+apt install tomcat9 -y ;\
+apt update -y ;\
+mkdir /usr/share/tomcat9/logs ; \
+mkdir /home/user/ ;\
+cd /home/user ;\
+git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git ;\
+cd boxfuse-sample-java-war-hello ;\
+mvn package ;\
+cd target ;\
+cp hello-1.0.war /var/lib/tomcat9/webapps/
 EXPOSE 8080
 
-CMD cd /home/
-CMD mkdir user
-CMD cd user
-CMD git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-CMD cd boxfuse-sample-java-war-hello
-CMD mvn package
-CMD cd target
-CMD cp hello-1.0.war /var/lib/tomcat9/webapps/
-CMD service tomcat9 start 
-ADD index.html /var/www/html/
-CMD ["/bin/bash"]
