@@ -8,7 +8,7 @@ RUN apt install maven -y
 RUN apt update -y
 RUN apt install git -y
 EXPOSE 8080
-CMD service tomcat9 start 
+
 CMD cd /home/
 CMD mkdir user
 CMD cd user
@@ -17,3 +17,6 @@ CMD cd boxfuse-sample-java-war-hello
 CMD mvn package
 CMD cd target
 CMD cp hello-1.0.war /var/lib/tomcat9/webapps/
+CMD service tomcat9 start 
+ADD index.html /var/www/html/
+CMD ["/bin/bash"]
